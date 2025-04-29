@@ -17,10 +17,16 @@ export class ContractController {
       const { name, premium_amount, start_date, end_date } = req.body;
 
       if (!name || !premium_amount || !start_date || !end_date) {
-        return res.status(400).json({ message: 'Todos los campos son obligatorios' });
+        return res.status(400).json({ message: 'All fields are required' });
       }
 
-      const newContract = await ContractModel.createContract({ name, premium_amount, start_date, end_date });
+      const newContract = await ContractModel.createContract({
+        name,
+        premium_amount,
+        start_date,
+        end_date,
+      });
+
       res.status(201).json(newContract);
     } catch (error) {
       console.error('Error creating contract:', error);
