@@ -2,7 +2,10 @@ import { ContractApi } from './api/ContractApi.js';
 import { ContractService } from './application/ContractService.js';
 import { ContractUI } from './ui/ContractUI.js';
 
-const contractApi = new ContractApi('http://localhost:3000/api');
+
+const baseUrl = 'http://localhost:3000/api';
+
+const contractApi = new ContractApi(baseUrl);
 const contractService = new ContractService(contractApi);
 
 const ui = new ContractUI({
