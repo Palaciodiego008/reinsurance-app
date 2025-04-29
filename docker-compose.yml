@@ -3,7 +3,7 @@ version: '3.8'
 services:
   backend:
     build:
-      context: ./backend 
+      context: ./backend
     ports:
       - "3000:3000"
     environment:
@@ -13,12 +13,12 @@ services:
 
   frontend:
     build:
-      context: ./frontend 
+      context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
-      - ./frontend:/usr/share/nginx/html
+      - ./frontend/src:/usr/share/nginx/html:ro
     networks:
       - app-network
 
