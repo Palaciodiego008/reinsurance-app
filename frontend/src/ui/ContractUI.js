@@ -1,4 +1,3 @@
-// src/ui/ContractUI.js
 export class ContractUI {
     constructor(options) {
         this.onAddContract = options.onAddContract;
@@ -7,9 +6,22 @@ export class ContractUI {
         this.searchInputEl = document.getElementById('search');
         this.loadingSpinnerEl = document.getElementById('loading-spinner');
         this.noContractsEl = document.getElementById('no-contracts');
+        this.modalEl = document.getElementById('contract-modal');
+        this.createContractBtn = document.getElementById('create-contract-btn');
+        this.closeModalBtn = document.getElementById('close-modal');
 
         this.contractFormEl.addEventListener('submit', (e) => this.handleAddContract(e));
         this.searchInputEl.addEventListener('input', (e) => this.handleSearch(e));
+        this.createContractBtn.addEventListener('click', () => this.openModal());
+        this.closeModalBtn.addEventListener('click', () => this.closeModal());
+    }
+
+    openModal() {
+        this.modalEl.classList.add('show');
+    }
+
+    closeModal() {
+        this.modalEl.classList.remove('show');
     }
 
     showLoading() {
@@ -35,18 +47,22 @@ export class ContractUI {
     }
 
     addContractToList(contract) {
+        const formatDate = (dateString) => {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' }; // Ejemplo: 23 de abril de 2025
+            return new Date(dateString).toLocaleDateString('es-ES', options);
+        };
+    
         const item = document.createElement('div');
         item.className = 'contract-item';
         item.innerHTML = `
             <div class="contract-details">
                 <div class="contract-name">${contract.name}</div>
                 <div class="contract-premium">$${contract.premiumAmount}</div>
-                <div class="contract-dates">${contract.startDate} - ${contract.endDate}</div>
+                <div class="contract-dates">${formatDate(contract.startDate)} - ${formatDate(contract.endDate)}</div>
             </div>
         `;
         this.contractListEl.appendChild(item);
     }
-
     async handleAddContract(event) {
         event.preventDefault();
         const name = document.getElementById('contract-name').value.trim();
@@ -62,6 +78,7 @@ export class ContractUI {
                 endDate
             });
             this.contractFormEl.reset();
+            this.closeModal();
         }
     }
 

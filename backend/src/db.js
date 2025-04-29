@@ -1,20 +1,13 @@
 import 'dotenv/config';
-import pkg from 'pg';
-const { Pool } = pkg;
+import mysql from 'mysql2/promise';
 
-export const pool = new Pool({
+const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: 5432
+  waitForConnections: true,
+  queueLimit: 0,
 });
 
-export const connect = async () => {
-  try {
-    await pool.connect();
-    console.log('Connected to the database');
-  } catch (error) {
-    console.error('Error connecting to the database', error);
-  }
-};
+export default pool;

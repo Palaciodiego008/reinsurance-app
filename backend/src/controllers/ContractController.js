@@ -4,6 +4,7 @@ export class ContractController {
   static async getContracts(req, res) {
     try {
       const contracts = await ContractModel.getAllContracts();
+      console.log('Contracts fetched:', contracts);
       res.json(contracts);
     } catch (error) {
       console.error('Error fetching contracts:', error);
