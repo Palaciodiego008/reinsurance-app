@@ -8,7 +8,6 @@ jest.unstable_mockModule('../models/ContractModel.js', () => ({
     }
 }));
 
-// Importaciones dinámicas para que el mock funcione
 const { ContractController } = await import('../controllers/ContractController.js');
 const { ContractModel } = await import('../models/ContractModel.js');
 
