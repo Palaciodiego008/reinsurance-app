@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80" # Mapea el puerto 80 del contenedor al puerto 3000 en el host
+    volumes:
+      - ./frontend:/usr/share/nginx/html # Monta el código fuente para desarrollo (opcional)
