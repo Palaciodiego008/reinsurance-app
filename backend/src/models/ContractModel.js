@@ -17,4 +17,13 @@ export class ContractModel {
     const [newContract] = await pool.query('SELECT * FROM reinsurance_contracts_test_diegopalacio WHERE id = ?', [result.insertId]);
     return newContract[0];
   }
+
+  static async deleteContract(id) {
+    const query = 'DELETE FROM reinsurance_contracts_test_diegopalacio WHERE id = ?'
+    const [result] = await pool.query(query, [id]);
+    if (result.affectedRows === 0) {
+      return null; // No contract found with the given ID
+    }
+    return { message: 'Contract deleted successfully' }; // Return a success message
+  }
 }

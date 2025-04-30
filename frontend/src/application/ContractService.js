@@ -20,4 +20,13 @@ export class ContractService {
         const newContract = new Contract(contractData);
         return await this.contractApi.createContract(newContract);
     }
+
+    async deleteContract(id) {
+        console.log(`Deleting contract with ID: ${id}`);
+        
+        if (!id) {
+            throw new Error('Contract ID is required');
+        }
+        return await this.contractApi.deleteContract(id);
+    }
 }

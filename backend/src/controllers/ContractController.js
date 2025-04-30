@@ -33,4 +33,24 @@ export class ContractController {
       res.status(500).json({ message: 'Error creating contract' });
     }
   }
+
+  static async deleteContract(req, res) {
+    try {
+      const {id} = req.params;
+      if (!id) {
+        return res.status(400).json({ message: 'Contract ID is required' });
+      }
+
+      const deletedContract = await ContractModel.deleteContract(id);
+      if (!deletedContract) {
+        return res.status(404).json({ message: 'Contract not found' });
+      }
+      res.status(200).json({ message: 'Contract deleted successfully' });
+
+    } catch (error) {
+      console.error('Error deleting contract:', error);
+      res.status(500).json({ message: 'Error deleting contract' });
+      
+    }
+  }
 }

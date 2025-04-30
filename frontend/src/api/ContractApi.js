@@ -1,4 +1,3 @@
-// src/api/ContractApi.js
 export class ContractApi {
     constructor(baseUrl) {
         this.baseUrl = baseUrl;
@@ -26,6 +25,21 @@ export class ContractApi {
             const errorText = await response.text();
             console.error('Server response:', errorText);
             throw new Error('Error al crear contrato');
+        }
+
+        return await response.json();
+    }
+
+    async deleteContract(id) {
+        const response = await fetch(`${this.baseUrl}/contracts/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Server response:', errorText);
+            throw new Error('Error al eliminar contrato');
         }
 
         return await response.json();

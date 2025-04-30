@@ -1,28 +1,6 @@
-import { ContractApi } from './api/ContractApi.js';
-import { ContractService } from './application/ContractService.js';
 import { ContractUI } from './ui/ContractUI.js';
 
-
-const baseUrl = 'http://localhost:3000/api';
-
-const contractApi = new ContractApi(baseUrl);
-const contractService = new ContractService(contractApi);
-
-const ui = new ContractUI({
-    onAddContract: async (contractData) => {
-        try {
-            ui.showLoading();
-            await contractService.addContract(contractData);
-            const contracts = await contractService.fetchContracts();
-            ui.displayContracts(contracts);
-        } catch (error) {
-            console.error(error);
-            alert('Error al agregar contrato');
-        } finally {
-            ui.hideLoading();
-        }
-    }
-});
+const ui = new ContractUI();
 
 async function init() {
     try {
@@ -30,7 +8,7 @@ async function init() {
         const contracts = await contractService.fetchContracts();
         ui.displayContracts(contracts);
     } catch (error) {
-        console.error(error);
+        console.error('Error al cargar contratos:', error);
         alert('Error al cargar contratos');
     } finally {
         ui.hideLoading();
